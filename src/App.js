@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { TextField } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import TodoList from "./TodoList";
 function App() {
+  const [text, setText] = useState("");
+  const [todos, setTodos] = useState([]);
+  const handleinput = (e) => {
+    setText(e.target.value);
+  };
+  const handleChange = (e) => {
+    if (text == "") {
+    } else setTodos([...todos, text]);
+    e.preventDefault();
+
+    setText("");
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3 style={{ fontSize: 60, justifyContent: "center", marginRight: 40 }}>
+        {" "}
+        TODO LIST
+      </h3>
+      <TextField
+        style={{ color: "darkgoldenrod", backgroundColor: "white" }}
+        value={text}
+        onChange={handleinput}
+        placeholder="Enter the Todo"
+      />
+      <button
+        onClick={handleChange}
+        style={{ textAlign: "center", margin: 10 }}
+      >
+        <AddIcon />
+      </button>
+      <TodoList todos={todos} />
     </div>
   );
 }
